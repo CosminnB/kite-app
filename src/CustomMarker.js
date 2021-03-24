@@ -72,22 +72,44 @@ const CustomMarker = observer(({ spot }) => {
       icon={isFavorite ? yellowIcon : blueIcon}
     >
       <Popup>
-        {spot.id}
-        <br />
-        {spot.name} <br /> {spot.country} <br /> {isFavorite ? "FAVORITE" : ""}
-        <br />
-        Wind probability: {spot.probability}% Latitude: {spot.lat}
-        <br />
-        Longitude: {spot.long}
-        <br />
-        When to go: {spot.month}
-        <br />
-        <button onClick={() => addToFavorites(spot.id)}>
-          Add to favorites
-        </button>
-        <button onClick={() => removeFromFavorites(spot.id)}>
-          Remove from favorites
-        </button>
+        <div>
+          <h3> {spot.name}</h3>
+          {isFavorite ? (
+            <div onClick={() => removeFromFavorites(spot.id)}>
+              <img
+                src="\star-on.png"
+                alt="star-on"
+                width="20px"
+                height="20px"
+              />
+            </div>
+          ) : (
+            <div onClick={() => addToFavorites(spot.id)}>
+              <img
+                src="\star-off.png"
+                alt="star-off"
+                width="20px"
+                height="20px"
+              />
+            </div>
+          )}
+          <p> {spot.country}</p>
+          Wind probability: {spot.probability}% Latitude: {spot.lat}
+          <br />
+          Longitude: {spot.long}
+          <br />
+          When to go: {spot.month}
+          <br />
+          {isFavorite ? (
+            <button onClick={() => removeFromFavorites(spot.id)}>
+              Remove from favorites
+            </button>
+          ) : (
+            <button onClick={() => addToFavorites(spot.id)}>
+              Add to favorites
+            </button>
+          )}
+        </div>
       </Popup>
     </Marker>
   );

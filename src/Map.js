@@ -1,14 +1,12 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import CustomMarker from "./CustomMarker";
 // import "leaflet/dist/leaflet.css";
 
 import "./Map.css";
 import { useStore } from "./store";
 const Map = observer(() => {
-  const checkIsFavorite = (id) => {};
-
   const store = useStore();
   return (
     <div className="map">
