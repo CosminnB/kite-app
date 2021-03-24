@@ -6,6 +6,8 @@ import { observer } from "mobx-react-lite";
 
 const CustomMarker = observer(({ spot }) => {
   const store = useStore();
+  const [isFavorite, setIsFavorite] = useState(null);
+  const [favoriteObj, setFavoriteObj] = useState(null);
   const LeafIcon = L.Icon.extend({
     options: {},
   });
@@ -17,18 +19,16 @@ const CustomMarker = observer(({ spot }) => {
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
   });
-  const [isFavorite, setIsFavorite] = useState(null);
-  const [favoriteObj, setFavoriteObj] = useState(null);
+
   useEffect(() => {
-    store.favorites.map((item) => {
-      if (item.spot == spot.id) {
+    let favorites = store.favorites;
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i].spot == spot.id) {
         setIsFavorite(true);
-        setFavoriteObj(item);
-        console.log("is favorite");
-      } else {
-        setIsFavorite(false);
+        setFavoriteObj(favorites[i]);
+        console.log(favorites[i].spot + " is favorite");
       }
-    });
+    }
   }, [store.favorites]);
 
   const addToFavorites = (id) => {
@@ -43,10 +43,10 @@ const CustomMarker = observer(({ spot }) => {
       .then((res) => res.json())
       .then((data) => {
         store.pushFavorite(data);
-        setIsFavorite(true);
         setFavoriteObj(data);
       })
       .catch((err) => console.log(err));
+    setIsFavorite(true);
   };
   const removeFromFavorites = (id) => {
     const body = { spot: id };
@@ -64,12 +64,15 @@ const CustomMarker = observer(({ spot }) => {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <Marker
       position={[spot.lat, spot.long]}
       icon={isFavorite ? yellowIcon : blueIcon}
     >
       <Popup>
+        {spot.id}
+        <br />
         {spot.name} <br /> {spot.country} <br /> {isFavorite ? "FAVORITE" : ""}
         <br />
         Wind probability: {spot.probability}% Latitude: {spot.lat}
