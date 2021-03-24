@@ -21,6 +21,9 @@ class KiteStore {
   pushFavorite(item) {
     this.favorites.push(item);
   }
+  removeFavorite(id) {
+    this.favorites = this.favorites.filter((fav) => fav.spot !== id);
+  }
 }
 
 const StoreContext = createContext();
