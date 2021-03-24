@@ -25,6 +25,7 @@ function Login() {
       .then((data) => {
         history.push("/dashboard");
         store.setUser(data.userId);
+        localStorage.setItem("user", data.userId);
         console.log(data);
       })
       .catch((err) => console.log("Error trying login", err));

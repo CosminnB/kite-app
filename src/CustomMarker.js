@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import { useStore } from "./store";
 import * as L from "leaflet";
+import { observer } from "mobx-react-lite";
 
-function CustomMarker({ spot }) {
+const CustomMarker = observer(({ spot }) => {
+  const store = useStore();
   const LeafIcon = L.Icon.extend({
     options: {},
   });
@@ -27,8 +29,8 @@ function CustomMarker({ spot }) {
         setIsFavorite(false);
       }
     });
-  }, []);
-  const store = useStore();
+  }, [store.favorites]);
+
   const addToFavorites = (id) => {
     const body = { spot: id };
     fetch(`${store.url}/favourites`, {
@@ -85,6 +87,6 @@ function CustomMarker({ spot }) {
       </Popup>
     </Marker>
   );
-}
+});
 
 export default CustomMarker;

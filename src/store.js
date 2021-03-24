@@ -2,7 +2,9 @@ import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
 
 class KiteStore {
-  user = null;
+  user = localStorage.getItem("user")
+    ? parseInt(localStorage.getItem("user"))
+    : null;
   url = "https://605a1211b11aba001745d7e0.mockapi.io";
   spots = [];
   favorites = [];

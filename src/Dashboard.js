@@ -1,8 +1,9 @@
+import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import Map from "./Map";
 import { useStore } from "./store";
 
-function Dashboard() {
+const Dashboard = observer(() => {
   const store = useStore();
   useEffect(() => {
     fetch(`${store.url}/spot`)
@@ -19,6 +20,6 @@ function Dashboard() {
       <Map />
     </div>
   );
-}
+});
 
 export default Dashboard;
