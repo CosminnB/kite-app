@@ -25,11 +25,11 @@ const CustomMarker = observer(({ spot }) => {
     for (let i = 0; i < favorites.length; i++) {
       if (favorites[i].spot == spot.id) {
         setIsFavorite(true);
-        setFavoriteObj(favorites[i]);
+        setFavoriteObj(favorites[i].id);
         console.log(favorites[i].spot + " is favorite");
       }
     }
-  }, [store.favorites]);
+  }, []);
 
   const addToFavorites = (id) => {
     const body = { spot: id };
@@ -43,26 +43,27 @@ const CustomMarker = observer(({ spot }) => {
       .then((res) => res.json())
       .then((data) => {
         store.pushFavorite(data);
-        setFavoriteObj(data);
+        setFavoriteObj(data.id);
       })
       .catch((err) => console.log(err));
     setIsFavorite(true);
   };
   const removeFromFavorites = (id) => {
-    const body = { spot: id };
-    fetch(`${store.url}/favourites/${favoriteObj.id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        store.removeFavorite(id);
-        setIsFavorite(false);
-        setFavoriteObj(null);
+    if (favoriteObj) {
+      fetch(`${store.url}/favourites/${favoriteObj}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
       })
-      .catch((err) => console.log(err));
+        .then((res) => res.json())
+        .then((data) => {
+          store.removeFavorite(id);
+          setIsFavorite(false);
+          setFavoriteObj(null);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
