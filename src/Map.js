@@ -1,9 +1,12 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import "leaflet/dist/leaflet.css";
 
 import "./Map.css";
-function Map() {
+import { useStore } from "./store";
+const Map = observer(() => {
+  const store = useStore();
   return (
     <div className="map">
       <link
@@ -17,15 +20,24 @@ function Map() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
-        <Marker position={[46.984, 9.247]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {store.spots.map((spot) => (
+          <Marker position={[spot.lat, spot.long]}>
+            <Popup>
+              {spot.name} <br /> {spot.country}
+              <br />
+              Wind probability: {spot.probability}% Latitude: {spot.lat}
+              <br />
+              Longitude: {spot.long}
+              <br />
+              When to go: {spot.month}
+              <br />
+              <button>Add to favorites</button>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );
-}
+});
 
 export default Map;
