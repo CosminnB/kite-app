@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import "./App.css";
+import Dashboard from "./Dashboard";
+import Login from "./Login";
+import Register from "./Register";
+import { KiteStore, StoreProvider } from "./store";
 
 function App() {
+  const store = new KiteStore();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        {/* redirect access if user logged in */}
+        <Route path="/register">
+          <Register />
+        </Route>
+        {/* redirect access if user logged in, here is the login page */}
+        <Route path="/">
+          <Login />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
