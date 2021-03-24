@@ -9,6 +9,10 @@ function Dashboard() {
       .then((res) => res.json())
       .then((data) => store.setSpots(data))
       .catch((err) => console.log(err));
+    fetch(`${store.url}/favourites`)
+      .then((res) => res.json())
+      .then((data) => store.setFavorites(data))
+      .catch((err) => console.log(err));
   }, []);
   return (
     <div className="dashboard">

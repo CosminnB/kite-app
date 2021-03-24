@@ -5,6 +5,7 @@ class KiteStore {
   user = null;
   url = "https://605a1211b11aba001745d7e0.mockapi.io";
   spots = [];
+  favorites = [];
   constructor() {
     makeAutoObservable(this);
   }
@@ -13,6 +14,12 @@ class KiteStore {
   }
   setSpots(data) {
     this.spots = data;
+  }
+  setFavorites(data) {
+    this.favorites = data;
+  }
+  pushFavorite(item) {
+    this.favorites.push(item);
   }
 }
 

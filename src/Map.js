@@ -1,11 +1,14 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import CustomMarker from "./CustomMarker";
 // import "leaflet/dist/leaflet.css";
 
 import "./Map.css";
 import { useStore } from "./store";
 const Map = observer(() => {
+  const checkIsFavorite = (id) => {};
+
   const store = useStore();
   return (
     <div className="map">
@@ -21,19 +24,7 @@ const Map = observer(() => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {store.spots.map((spot) => (
-          <Marker position={[spot.lat, spot.long]}>
-            <Popup>
-              {spot.name} <br /> {spot.country}
-              <br />
-              Wind probability: {spot.probability}% Latitude: {spot.lat}
-              <br />
-              Longitude: {spot.long}
-              <br />
-              When to go: {spot.month}
-              <br />
-              <button>Add to favorites</button>
-            </Popup>
-          </Marker>
+          <CustomMarker spot={spot} key={`spot-${spot.id}`} />
         ))}
       </MapContainer>
     </div>
