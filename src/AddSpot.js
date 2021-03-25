@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./AddSpot.css";
 import MarkerAdd from "./MarkerAdd";
+import SetViewOnSelect from "./SetViewOnSelect";
 function AddSpot() {
   const [countries, setCountries] = useState(null);
   const [countryValue, setCountryValue] = useState([46.984, 9.247]);
@@ -56,13 +57,40 @@ function AddSpot() {
         selected={firstSelectedDate}
         onChange={(date) => setFirstSelectedDate(date)}
       />
-      <MapContainer center={countryValue} zoom={4} scrollWheelZoom={false}>
+      <MapContainer
+        center={countryValue}
+        zoom={3}
+        scrollWheelZoom={true}
+        maxBounds={[
+          [-90, -180],
+          [90, 180],
+        ]}
+        noWrap={true}
+        maxBoundsViscosity={1}
+        // boundsOptions={[
+        //   [-65, -180],
+        //   [65, 180],
+        // ]}
+        // bounds={[
+        //   [-65, -180],
+        //   [65, 180],
+        // ]}
+      >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          noWrap={true}
+          minZoom={2}
         />
         <MarkerAdd />
+        {countryValue !== [46.984, 9.247] ? (
+          <SetViewOnSelect coords={countryValue} />
+        ) : (
+          ""
+        )}
       </MapContainer>
+      <button>Cancel</button>
+      <button>Confirm</button>
     </div>
   );
 }
