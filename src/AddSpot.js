@@ -12,6 +12,7 @@ function AddSpot() {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [firstSelectedDate, setFirstSelectedDate] = useState(new Date());
+  const [secondSelectedDate, setSecondSelectedDate] = useState(new Date());
 
   useEffect(() => {
     if (loading) {
@@ -51,12 +52,37 @@ function AddSpot() {
           </MenuItem>
         ))}
       </Select>
-      <InputLabel>Starting Date</InputLabel>
-      <DatePicker
-        id="date-picker"
-        selected={firstSelectedDate}
-        onChange={(date) => setFirstSelectedDate(date)}
-      />
+      <div className="add__dates">
+        <InputLabel>Starting Date</InputLabel>
+        <DatePicker
+          dateFormat="dd/MM/yyyy"
+          id="date-picker1"
+          selected={firstSelectedDate}
+          onChange={(date) => setFirstSelectedDate(date)}
+          selectsStart
+          startDate={firstSelectedDate}
+          endDate={secondSelectedDate}
+        />
+        <InputLabel>Ending Date</InputLabel>
+        <DatePicker
+          dateFormat="dd/MM/yyyy"
+          id="date-picker2"
+          selected={secondSelectedDate}
+          onChange={(date) => setSecondSelectedDate(date)}
+          selectsEnd
+          startDate={firstSelectedDate}
+          endDate={secondSelectedDate}
+          minDate={firstSelectedDate}
+        />
+      </div>
+      {firstSelectedDate.getMonth() !== secondSelectedDate.getMonth() ? (
+        <p>
+          {firstSelectedDate.toLocaleString("default", { month: "long" })} to{" "}
+          {secondSelectedDate.toLocaleString("default", { month: "long" })}
+        </p>
+      ) : (
+        <p>{firstSelectedDate.toLocaleString("default", { month: "long" })}</p>
+      )}
       <MapContainer
         center={countryValue}
         zoom={3}
@@ -67,14 +93,6 @@ function AddSpot() {
         ]}
         noWrap={true}
         maxBoundsViscosity={1}
-        // boundsOptions={[
-        //   [-65, -180],
-        //   [65, 180],
-        // ]}
-        // bounds={[
-        //   [-65, -180],
-        //   [65, 180],
-        // ]}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -89,8 +107,10 @@ function AddSpot() {
           ""
         )}
       </MapContainer>
-      <button>Cancel</button>
-      <button>Confirm</button>
+      <div className="add__buttons">
+        <button>Cancel</button>
+        <button>Confirm</button>
+      </div>
     </div>
   );
 }
