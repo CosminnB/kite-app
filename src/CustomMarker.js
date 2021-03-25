@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, useMapEvents } from "react-leaflet";
 import { useStore } from "./store";
 import * as L from "leaflet";
 import { observer } from "mobx-react-lite";
@@ -8,6 +8,13 @@ const CustomMarker = observer(({ spot }) => {
   const store = useStore();
   const [isFavorite, setIsFavorite] = useState(null);
   const [favoriteObj, setFavoriteObj] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const map = useMapEvents({
+    click(e) {
+      const newMarker = e.latlng;
+      console.log(newMarker);
+    },
+  }); //pt lat si lng
   const LeafIcon = L.Icon.extend({
     options: {},
   });
@@ -21,15 +28,18 @@ const CustomMarker = observer(({ spot }) => {
   });
 
   useEffect(() => {
-    let favorites = store.favorites;
-    for (let i = 0; i < favorites.length; i++) {
-      if (favorites[i].spot == spot.id) {
-        setIsFavorite(true);
-        setFavoriteObj(favorites[i].id);
-        console.log(favorites[i].spot + " is favorite");
+    if (loading) {
+      let favorites = store.favorites;
+      for (let i = 0; i < favorites.length; i++) {
+        if (favorites[i].spot == spot.id) {
+          setIsFavorite(true);
+          setFavoriteObj(favorites[i].id);
+          console.log(favorites[i].spot + " is favorite");
+          setLoading(false);
+        }
       }
     }
-  }, []);
+  }, [store.favorites]);
 
   const addToFavorites = (id) => {
     const body = { spot: id };

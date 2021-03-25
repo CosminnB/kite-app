@@ -1,7 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
+import AddSpot from "./AddSpot";
 import Map from "./Map";
 import { useStore } from "./store";
+import "./Dashboard.css";
 
 const Dashboard = observer(() => {
   const store = useStore();
@@ -18,6 +20,7 @@ const Dashboard = observer(() => {
   return (
     <div className="dashboard">
       <Map />
+      <AddSpot />
     </div>
   );
 });

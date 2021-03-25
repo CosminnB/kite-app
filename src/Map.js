@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import React, { useEffect, useRef } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import CustomMarker from "./CustomMarker";
 // import "leaflet/dist/leaflet.css";
 
