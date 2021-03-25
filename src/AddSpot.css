@@ -10,4 +10,6 @@
   width: 60%;
   height: 80%;
   margin-top: 5px;
+  display: flex;
+  flex-direction: column;
 }
