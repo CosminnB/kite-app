@@ -1,15 +1,13 @@
 import { InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
 import React, { useEffect, useState } from "react";
-import DateFnsUtils from "@date-io/date-fns";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "./AddSpot.css";
+import MarkerAdd from "./MarkerAdd";
 function AddSpot() {
   const [countries, setCountries] = useState(null);
-  const [countryValue, setCountryValue] = useState("");
+  const [countryValue, setCountryValue] = useState([46.984, 9.247]);
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [firstSelectedDate, setFirstSelectedDate] = useState(new Date());
@@ -35,7 +33,6 @@ function AddSpot() {
     <div className="add__container">
       <InputLabel id="name-label">Name</InputLabel>
       <TextField labelId="name" id="filled-helperText" placeholder="Name" />
-
       <InputLabel id="select-label">Country</InputLabel>
       <Select
         labelId="select-label"
@@ -53,25 +50,19 @@ function AddSpot() {
           </MenuItem>
         ))}
       </Select>
-
-      {/* <InputLabel htmlFor="select-native-label">Country</InputLabel>
-      <NativeSelect
-        value={countryValue}
-        onChange={(e) => setCountryValue(e.target.value)}
-        inputProps={{
-          name: "country",
-          id: "select-native-label",
-        }}
-      >
-        <option value="" disabled>
-          Select a country..
-        </option>
-        {options?.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </NativeSelect> */}
+      <InputLabel>Starting Date</InputLabel>
+      <DatePicker
+        id="date-picker"
+        selected={firstSelectedDate}
+        onChange={(date) => setFirstSelectedDate(date)}
+      />
+      <MapContainer center={countryValue} zoom={4} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MarkerAdd />
+      </MapContainer>
     </div>
   );
 }
