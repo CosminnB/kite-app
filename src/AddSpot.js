@@ -6,13 +6,18 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "./AddSpot.css";
 import MarkerAdd from "./MarkerAdd";
 import SetViewOnSelect from "./SetViewOnSelect";
+import { useStore } from "./store";
 function AddSpot() {
+  const store = useStore();
   const [countries, setCountries] = useState(null);
   const [countryValue, setCountryValue] = useState([46.984, 9.247]);
+  const [countryName, setCountryName] = useState(null);
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [firstSelectedDate, setFirstSelectedDate] = useState(new Date());
   const [secondSelectedDate, setSecondSelectedDate] = useState(new Date());
+  const [name, setName] = useState(null);
+  const [optionValue, setOptionValue] = useState(null);
 
   useEffect(() => {
     if (loading) {
@@ -30,24 +35,79 @@ function AddSpot() {
       setOptions(sorted);
     }
   }, [loading]);
+  const handleCancel = () => {
+    store.setIsAddingSpot(false);
+  };
+  const handleConfirm = () => {
+    const date = new Date();
+    const month1 = firstSelectedDate.toLocaleString("default", {
+      month: "long",
+    });
+    const month2 = secondSelectedDate.toLocaleString("default", {
+      month: "long",
+    });
+    let months;
+    if (month1 === month2) {
+      months = firstSelectedDate.toLocaleString("default", {
+        month: "long",
+      });
+    } else {
+      months =
+        firstSelectedDate.toLocaleString("default", {
+          month: "long",
+        }) +
+        " to " +
+        secondSelectedDate.toLocaleString("default", {
+          month: "long",
+        });
+    }
 
+    const body = {
+      createdAt: date.toISOString(),
+      name: name,
+      country: optionValue.label,
+      lat: optionValue.value[0].toString(),
+      long: optionValue.value[1].toString(),
+      month: months,
+    };
+    fetch(`${store.url}/spot`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => console.log("Spot added successfully", response))
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="add__container">
       <InputLabel id="name-label">Name</InputLabel>
-      <TextField labelId="name" id="filled-helperText" placeholder="Name" />
+      <TextField
+        labelId="name"
+        id="filled-helperText"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <InputLabel id="select-label">Country</InputLabel>
       <Select
         labelId="select-label"
         id="select-country"
-        value={countryValue}
-        onChange={(e) => setCountryValue(e.target.value)}
+        value={optionValue}
+        onChange={(e) => {
+          setOptionValue(e.target.value);
+          setCountryValue(e.target.value.value);
+          setCountryName(e.target.value.label);
+        }}
         displayEmpty
       >
         <MenuItem value="" disabled>
           Select a country..
         </MenuItem>
         {options?.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
+          <MenuItem key={option.value} value={option}>
             {option.label}
           </MenuItem>
         ))}
@@ -108,8 +168,8 @@ function AddSpot() {
         )}
       </MapContainer>
       <div className="add__buttons">
-        <button>Cancel</button>
-        <button>Confirm</button>
+        <button onClick={handleCancel}>Cancel</button>
+        <button onClick={handleConfirm}>Confirm</button>
       </div>
     </div>
   );

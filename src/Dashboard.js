@@ -20,7 +20,8 @@ const Dashboard = observer(() => {
   return (
     <div className="dashboard">
       <Map />
-      <AddSpot />
+      {store.isAddingSpot ? <AddSpot /> : ""}
+      <button onClick={() => store.setIsAddingSpot(true)}>Add Spot</button>
     </div>
   );
 });

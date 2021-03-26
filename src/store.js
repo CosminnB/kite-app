@@ -8,6 +8,7 @@ class KiteStore {
   url = "https://605a1211b11aba001745d7e0.mockapi.io";
   spots = [];
   favorites = [];
+  isAddingSpot = false;
   constructor() {
     makeAutoObservable(this);
   }
@@ -25,6 +26,9 @@ class KiteStore {
   }
   removeFavorite(id) {
     this.favorites = this.favorites.filter((fav) => fav.spot !== id);
+  }
+  setIsAddingSpot(bool) {
+    this.isAddingSpot = bool;
   }
 }
 
