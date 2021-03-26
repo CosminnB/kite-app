@@ -9,12 +9,7 @@ const CustomMarker = observer(({ spot }) => {
   const [isFavorite, setIsFavorite] = useState(null);
   const [favoriteObj, setFavoriteObj] = useState(null);
   const [loading, setLoading] = useState(true);
-  const map = useMapEvents({
-    click(e) {
-      const newMarker = e.latlng;
-      console.log(newMarker);
-    },
-  }); //pt lat si lng
+
   const LeafIcon = L.Icon.extend({
     options: {},
   });

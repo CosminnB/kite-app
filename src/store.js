@@ -9,6 +9,7 @@ class KiteStore {
   spots = [];
   favorites = [];
   isAddingSpot = false;
+  position = {};
   constructor() {
     makeAutoObservable(this);
   }
@@ -29,6 +30,9 @@ class KiteStore {
   }
   setIsAddingSpot(bool) {
     this.isAddingSpot = bool;
+  }
+  setPosition(pos) {
+    this.position = pos;
   }
 }
 

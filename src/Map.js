@@ -16,10 +16,22 @@ const Map = observer(() => {
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""
       />
-      <MapContainer center={[46.984, 9.247]} zoom={4} scrollWheelZoom={false}>
+      <MapContainer
+        center={[46.984, 9.247]}
+        zoom={4}
+        scrollWheelZoom={true}
+        maxBounds={[
+          [-90, -180],
+          [90, 180],
+        ]}
+        noWrap={true}
+        maxBoundsViscosity={1}
+      >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          noWrap={true}
+          minZoom={3}
         />
         {store.spots.map((spot) => (
           <CustomMarker spot={spot} key={`spot-${spot.id}`} />

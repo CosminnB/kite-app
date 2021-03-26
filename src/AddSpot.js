@@ -16,8 +16,8 @@ function AddSpot() {
   const [loading, setLoading] = useState(true);
   const [firstSelectedDate, setFirstSelectedDate] = useState(new Date());
   const [secondSelectedDate, setSecondSelectedDate] = useState(new Date());
-  const [name, setName] = useState(null);
-  const [optionValue, setOptionValue] = useState(null);
+  const [name, setName] = useState("");
+  const [optionValue, setOptionValue] = useState("");
 
   useEffect(() => {
     if (loading) {
@@ -65,9 +65,9 @@ function AddSpot() {
     const body = {
       createdAt: date.toISOString(),
       name: name,
-      country: optionValue.label,
-      lat: optionValue.value[0].toString(),
-      long: optionValue.value[1].toString(),
+      country: countryName,
+      lat: store.position.lat.toString(),
+      long: store.position.lng.toString(),
       month: months,
     };
     fetch(`${store.url}/spot`, {
@@ -80,12 +80,12 @@ function AddSpot() {
       .then((res) => res.json())
       .then((response) => console.log("Spot added successfully", response))
       .catch((err) => console.log(err));
+    store.setIsAddingSpot(false);
   };
   return (
     <div className="add__container">
       <InputLabel id="name-label">Name</InputLabel>
       <TextField
-        labelId="name"
         id="filled-helperText"
         placeholder="Name"
         value={name}
