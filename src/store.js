@@ -19,6 +19,9 @@ class KiteStore {
   setSpots(data) {
     this.spots = data;
   }
+  pushSpot(spot) {
+    this.spots.push(spot);
+  }
   setFavorites(data) {
     this.favorites = data;
   }

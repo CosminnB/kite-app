@@ -80,6 +80,7 @@ function AddSpot() {
       .then((res) => res.json())
       .then((response) => console.log("Spot added successfully", response))
       .catch((err) => console.log(err));
+    store.pushSpot(body);
     store.setIsAddingSpot(false);
   };
   return (

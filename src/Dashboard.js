@@ -7,6 +7,7 @@ import "./Dashboard.css";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { useHistory } from "react-router";
+import SpotsTable from "./SpotsTable";
 
 const Dashboard = observer(() => {
   const history = useHistory();
@@ -44,6 +45,7 @@ const Dashboard = observer(() => {
       </Menu>
       <Map />
       {store.isAddingSpot ? <AddSpot /> : ""}
+      {store.spots && <SpotsTable />}
     </div>
   );
 });
