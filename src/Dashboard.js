@@ -5,7 +5,7 @@ import Map from "./Map";
 import { useStore } from "./store";
 import "./Dashboard.css";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem, TextField } from "@material-ui/core";
 import { useHistory } from "react-router";
 import SpotsTable from "./SpotsTable";
 
