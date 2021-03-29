@@ -1,3 +1,9 @@
 .leaflet-container {
   height: 90vh;
 }
+.map__filterButton {
+  position: absolute;
+  z-index: 9999;
+  top: 50px;
+  right: 0;
+}

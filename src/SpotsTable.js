@@ -43,7 +43,7 @@ function SpotsTable() {
 
     setRows(spots);
   }, [store.spots, searchText]);
-
+  //DE ADAUGAT STAR IN DREPTUL CELOR FAVORITE
   return (
     <div className="table__container">
       <SearchIcon />

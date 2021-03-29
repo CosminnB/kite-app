@@ -40,6 +40,16 @@ const Dashboard = observer(() => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
+        elevation={3}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
       >
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
