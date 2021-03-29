@@ -10,6 +10,7 @@ class KiteStore {
   favorites = [];
   isAddingSpot = false;
   position = {};
+  tableRef = null;
   constructor() {
     makeAutoObservable(this);
   }
@@ -36,6 +37,9 @@ class KiteStore {
   }
   setPosition(pos) {
     this.position = pos;
+  }
+  setTableRef(ref) {
+    this.tableRef = ref;
   }
 }
 

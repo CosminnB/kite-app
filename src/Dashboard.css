@@ -3,3 +3,7 @@
   /* mai putin margin pt mobil */
   position: relative;
 }
+#dashboard__account {
+  font-size: 40px;
+  color: #3f51b5;
+}

@@ -1,9 +1,39 @@
-.leaflet-container {
+.map {
+  position: relative;
+}
+.map > .leaflet-container {
   height: 90vh;
 }
-.map__filterButton {
+#map__filterButton {
   position: absolute;
-  z-index: 9999;
-  top: 50px;
+  z-index: 999;
+  top: 0;
   right: 0;
+  font-weight: 700;
+  background-color: white;
+  margin: 5px;
+}
+#filter-icon {
+  height: 1.5rem;
+}
+#filter-popover > .MuiPaper-root {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+#filter-popover > .MuiPaper-root > * {
+  padding: 8px;
+}
+.filter__button-group > * {
+  margin: 5px !important;
+}
+#map__goDown {
+  background-color: #3f51b5 !important;
+  color: white !important;
+  border-radius: 20%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  margin: 10px;
 }

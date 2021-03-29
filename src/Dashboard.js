@@ -5,9 +5,10 @@ import Map from "./Map";
 import { useStore } from "./store";
 import "./Dashboard.css";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { IconButton, Menu, MenuItem, TextField } from "@material-ui/core";
+import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { useHistory } from "react-router";
 import SpotsTable from "./SpotsTable";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const Dashboard = observer(() => {
   const history = useHistory();
@@ -30,9 +31,21 @@ const Dashboard = observer(() => {
   };
   return (
     <div className="dashboard">
-      <button onClick={() => store.setIsAddingSpot(true)}>Add Spot</button>
+      <Button
+        onClick={() => {
+          if (store.isAddingSpot) {
+            store.setIsAddingSpot(false);
+          } else {
+            store.setIsAddingSpot(true);
+          }
+        }}
+        variant="contained"
+        color="primary"
+      >
+        Add Spot
+      </Button>
       <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-        <AccountCircleIcon />
+        <AccountCircleIcon id="dashboard__account" />
       </IconButton>
       <Menu
         id="simple-menu"
@@ -51,7 +64,10 @@ const Dashboard = observer(() => {
           horizontal: "center",
         }}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <ExitToAppIcon />
+          Logout
+        </MenuItem>
       </Menu>
       <Map />
       {store.isAddingSpot ? <AddSpot /> : ""}

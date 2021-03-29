@@ -1,8 +1,15 @@
-import { InputLabel, Popover, TextField } from "@material-ui/core";
+import {
+  Button,
+  IconButton,
+  InputLabel,
+  Popover,
+  TextField,
+} from "@material-ui/core";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import CustomMarker from "./CustomMarker";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 // import "leaflet/dist/leaflet.css";
 
 import "./Map.css";
@@ -13,6 +20,7 @@ const Map = observer(() => {
   const [probability, setProbability] = useState("");
   const [filteredSpots, setFilteredSpots] = useState(null);
   const store = useStore();
+  const scrollToDiv = (ref) => window.scrollTo(0, ref.offsetTop);
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -72,12 +80,20 @@ const Map = observer(() => {
               <CustomMarker spot={spot} key={`spot-${spot.id}`} />
             ))}
       </MapContainer>
-      <button
-        className="map__filterButton"
-        onClick={(e) => setAnchorEl(e.currentTarget)}
+      <Button
+        variant="contained"
+        id="map__filterButton"
+        onClick={(e) => {
+          if (anchorEl) {
+            setAnchorEl(null);
+          } else {
+            setAnchorEl(e.currentTarget);
+          }
+        }}
       >
+        <img src="\filter.png" alt="filter-icon" id="filter-icon" />
         Filters
-      </button>
+      </Button>
 
       <Popover
         id={"filter-popover"}
@@ -93,7 +109,7 @@ const Map = observer(() => {
           horizontal: "center",
         }}
       >
-        <InputLabel id="country-label">Country</InputLabel>
+        <InputLabel id="filter__country-label">Country</InputLabel>
         <TextField
           id="country-input"
           variant="standard"
@@ -101,25 +117,33 @@ const Map = observer(() => {
           onChange={(e) => setCountry(e.target.value)}
         />
 
-        <InputLabel id="probability-label">Wind Probability</InputLabel>
+        <InputLabel id="filter__probability-label">Wind Probability</InputLabel>
         <TextField
           id="probability-input"
           variant="standard"
           value={probability}
           onChange={(e) => setProbability(e.target.value)}
         />
-
-        <button onClick={filterSpots}>Apply Filters</button>
-        <button
-          onClick={() => {
-            setCountry("");
-            setProbability("");
-            setFilteredSpots(null);
-          }}
-        >
-          Clear Filters
-        </button>
+        <div className="filter__button-group">
+          <Button variant="contained" color="primary" onClick={filterSpots}>
+            Apply Filters
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              setCountry("");
+              setProbability("");
+              setFilteredSpots(null);
+            }}
+          >
+            Clear Filters
+          </Button>
+        </div>
       </Popover>
+      <IconButton id="map__goDown" onClick={() => scrollToDiv(store.tableRef)}>
+        <ArrowDownwardIcon />
+      </IconButton>
     </div>
   );
 });

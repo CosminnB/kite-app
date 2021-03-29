@@ -1,4 +1,10 @@
-import { InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -85,34 +91,39 @@ function AddSpot() {
   };
   return (
     <div className="add__container">
-      <InputLabel id="name-label">Name</InputLabel>
-      <TextField
-        id="filled-helperText"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <InputLabel id="select-label">Country</InputLabel>
-      <Select
-        labelId="select-label"
-        id="select-country"
-        value={optionValue}
-        onChange={(e) => {
-          setOptionValue(e.target.value);
-          setCountryValue(e.target.value.value);
-          setCountryName(e.target.value.label);
-        }}
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          Select a country..
-        </MenuItem>
-        {options?.map((option) => (
-          <MenuItem key={option.value} value={option}>
-            {option.label}
+      <div className="add__name">
+        <InputLabel id="name-label">Name</InputLabel>
+        <TextField
+          id="filled-helperText"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+      <div className="add__country">
+        <InputLabel id="select-label">Country</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select-country"
+          value={optionValue}
+          onChange={(e) => {
+            setOptionValue(e.target.value);
+            setCountryValue(e.target.value.value);
+            setCountryName(e.target.value.label);
+          }}
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            Select a country..
           </MenuItem>
-        ))}
-      </Select>
+          {options?.map((option) => (
+            <MenuItem key={option.value} value={option}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </div>
+
       <div className="add__dates">
         <InputLabel>Starting Date</InputLabel>
         <DatePicker
@@ -124,6 +135,8 @@ function AddSpot() {
           startDate={firstSelectedDate}
           endDate={secondSelectedDate}
         />
+      </div>
+      <div className="add__dates">
         <InputLabel>Ending Date</InputLabel>
         <DatePicker
           dateFormat="dd/MM/yyyy"
@@ -136,14 +149,19 @@ function AddSpot() {
           minDate={firstSelectedDate}
         />
       </div>
-      {firstSelectedDate.getMonth() !== secondSelectedDate.getMonth() ? (
-        <p>
-          {firstSelectedDate.toLocaleString("default", { month: "long" })} to{" "}
-          {secondSelectedDate.toLocaleString("default", { month: "long" })}
-        </p>
-      ) : (
-        <p>{firstSelectedDate.toLocaleString("default", { month: "long" })}</p>
-      )}
+      <div className="add__season">
+        <h4>High Season</h4>
+        {firstSelectedDate.getMonth() !== secondSelectedDate.getMonth() ? (
+          <p>
+            {firstSelectedDate.toLocaleString("default", { month: "long" })} to{" "}
+            {secondSelectedDate.toLocaleString("default", { month: "long" })}
+          </p>
+        ) : (
+          <p>
+            {firstSelectedDate.toLocaleString("default", { month: "long" })}
+          </p>
+        )}
+      </div>
       <MapContainer
         center={countryValue}
         zoom={3}
@@ -169,8 +187,12 @@ function AddSpot() {
         )}
       </MapContainer>
       <div className="add__buttons">
-        <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleConfirm}>Confirm</button>
+        <Button variant="contained" color="secondary" onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleConfirm}>
+          Confirm
+        </Button>
       </div>
     </div>
   );

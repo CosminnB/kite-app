@@ -1,5 +1,5 @@
 import { DataGrid } from "@material-ui/data-grid";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStore } from "./store";
 import "./SpotsTable.css";
 import { TextField } from "@material-ui/core";
@@ -9,6 +9,8 @@ function SpotsTable() {
   const [rows, setRows] = useState([]);
   const [searchText, setSearchText] = useState("");
   const store = useStore();
+  const tableRef = useRef();
+  store.setTableRef(tableRef.current);
   const columns = [
     { field: "name", headerName: "Name", width: 150 },
     { field: "country", headerName: "Country", width: 150 },
@@ -45,7 +47,7 @@ function SpotsTable() {
   }, [store.spots, searchText]);
   //DE ADAUGAT STAR IN DREPTUL CELOR FAVORITE
   return (
-    <div className="table__container">
+    <div className="table__container" ref={tableRef}>
       <SearchIcon />
       <TextField
         variant="outlined"

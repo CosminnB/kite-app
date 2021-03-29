@@ -7,15 +7,43 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
+  width: 50%;
   /* 90% pt mobil */
-  height: 80%;
+  height: 650px;
   margin-top: 5px;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 20px 2px rgb(70 70 70 / 86%);
 }
 .add__container > .leaflet-container {
   width: 90%;
-  margin: auto;
+  height: 100%;
+  margin: 12px auto;
   z-index: -1;
+}
+.add__container > * {
+  margin: 5px;
+}
+.add__name > *,
+.add__country > *,
+.add__dates > * {
+  width: 100%;
+}
+#date-picker1,
+#date-picker2 {
+  height: 25px;
+  cursor: pointer;
+  border: 1px solid #303f9f;
+  font-size: 1rem;
+}
+.add__season > h4 {
+}
+.add__container > * > .MuiFormLabel-root {
+  color: black !important;
+  font-weight: 600 !important;
+}
+.add__buttons > * {
+  margin: 5px !important;
 }
