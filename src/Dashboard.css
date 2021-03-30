@@ -1,6 +1,4 @@
 .dashboard {
-  margin: 10px;
-  /* mai putin margin pt mobil */
   position: relative;
 }
 #dashboard__account {
@@ -10,9 +8,14 @@
 #dashboard__logout {
   color: red;
 }
-.dashboard__controls {
-  justify-content: flex-end;
+.dashboard__bar {
+  justify-content: space-between;
   align-items: center;
   margin: 10px;
   display: flex;
+}
+.dashboard__logo {
+  font-size: 35px;
+  margin: 10px;
+  font-family: Caveat;
 }

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useStore } from "./store";
+import "./Login.css";
+import { Button, InputLabel, TextField } from "@material-ui/core";
 
 function Login() {
   const history = useHistory();
@@ -26,30 +28,43 @@ function Login() {
         history.push("/dashboard");
         store.setUser(data.userId);
         localStorage.setItem("user", data.userId);
-        console.log(data);
       })
       .catch((err) => console.log("Error trying login", err));
   };
   return (
     <div className="login">
-      <form className="login__form">
-        <input
-          type="text"
-          placeholder="Username"
-          className="login__user"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="login__password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="login__submit" onClick={verifyLogin}>
+      <h1 className="login__logo">Kite</h1>
+      <form className="login__form" onSubmit={(e) => verifyLogin(e)}>
+        <div className="login__input">
+          <InputLabel>Username</InputLabel>
+          <TextField
+            variant="outlined"
+            required
+            type="text"
+            className="login__user"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+          />
+        </div>
+        <div className="login__input">
+          <InputLabel>Password</InputLabel>
+          <TextField
+            variant="outlined"
+            required
+            type="password"
+            className="login__password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <Button
+          type="submit"
+          className="login__submit"
+          variant="contained"
+          color="primary"
+        >
           Login
-        </button>
+        </Button>
       </form>
       <Link to="/register">
         <p>No account? Register here.</p>

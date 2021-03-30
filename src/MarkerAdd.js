@@ -9,7 +9,6 @@ function MarkerAdd() {
   const map = useMapEvents({
     click(e) {
       const newMarker = e.latlng;
-      console.log(newMarker);
       setPosition(newMarker);
       store.setPosition(newMarker);
     },

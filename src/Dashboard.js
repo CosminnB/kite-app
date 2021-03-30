@@ -31,45 +31,48 @@ const Dashboard = observer(() => {
   };
   return (
     <div className="dashboard">
-      <div className="dashboard__controls">
-        <Button
-          onClick={() => {
-            if (store.isAddingSpot) {
-              store.setIsAddingSpot(false);
-            } else {
-              store.setIsAddingSpot(true);
-            }
-          }}
-          variant="contained"
-          color="primary"
-        >
-          Add Spot
-        </Button>
-        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-          <AccountCircleIcon id="dashboard__account" />
-        </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={() => setAnchorEl(null)}
-          elevation={3}
-          getContentAnchorEl={null}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <MenuItem onClick={handleLogout} id="dashboard__logout">
-            <ExitToAppIcon />
-            Logout
-          </MenuItem>
-        </Menu>
+      <div className="dashboard__bar">
+        <h3 className="dashboard__logo">Kite</h3>
+        <div className="dashboard__controls">
+          <Button
+            onClick={() => {
+              if (store.isAddingSpot) {
+                store.setIsAddingSpot(false);
+              } else {
+                store.setIsAddingSpot(true);
+              }
+            }}
+            variant="contained"
+            color="primary"
+          >
+            Add Spot
+          </Button>
+          <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+            <AccountCircleIcon id="dashboard__account" />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+            elevation={3}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <MenuItem onClick={handleLogout} id="dashboard__logout">
+              <ExitToAppIcon />
+              Logout
+            </MenuItem>
+          </Menu>
+        </div>
       </div>
       <Map />
       {store.isAddingSpot ? <AddSpot /> : ""}

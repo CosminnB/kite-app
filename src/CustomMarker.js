@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Marker, Popup, useMapEvents } from "react-leaflet";
+import { Marker, Popup } from "react-leaflet";
 import { useStore } from "./store";
 import * as L from "leaflet";
 import { observer } from "mobx-react-lite";

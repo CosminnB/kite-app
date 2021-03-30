@@ -1,6 +1,5 @@
 import {
   Button,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -45,7 +44,8 @@ function AddSpot() {
   const handleCancel = () => {
     store.setIsAddingSpot(false);
   };
-  const handleConfirm = () => {
+  const handleConfirm = (e) => {
+    e.preventDefault();
     const date = new Date();
     const month1 = firstSelectedDate.toLocaleString("default", {
       month: "long",
@@ -85,13 +85,13 @@ function AddSpot() {
       },
     })
       .then((res) => res.json())
-      .then((response) => console.log("Spot added successfully", response))
+      .then((response) => console.log("Spot added successfully"))
       .catch((err) => console.log(err));
     store.pushSpot(body);
     store.setIsAddingSpot(false);
   };
   return (
-    <form onSubmit={handleConfirm}>
+    <form onSubmit={(e) => handleConfirm(e)}>
       <div className="add__container">
         <div className="add__name">
           <InputLabel id="name-label">Name</InputLabel>

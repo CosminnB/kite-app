@@ -1,0 +1,17 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login__form > * {
+  margin: 20px;
+}
+.login__logo {
+  font-size: 80px;
+  font-family: Caveat;
+}

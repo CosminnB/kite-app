@@ -2,12 +2,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import React, { useEffect, useRef, useState } from "react";
 import { useStore } from "./store";
 import "./SpotsTable.css";
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@material-ui/core";
+import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import StarIcon from "@material-ui/icons/Star";

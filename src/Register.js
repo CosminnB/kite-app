@@ -1,7 +1,8 @@
+import { Button, InputLabel, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { useStore } from "./store";
-
+import "./Register.css";
 function Register() {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
@@ -36,31 +37,49 @@ function Register() {
 
   return (
     <div className="register">
-      <form className="register__form">
-        <input
-          type="text"
-          placeholder="Username"
-          className="register__user"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="register__email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="register__password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="register__submit" onClick={register}>
+      <h1 className="register__logo">Kite</h1>
+      <form className="register__form" onSubmit={(e) => register(e)}>
+        <div className="register__input">
+          <InputLabel>Username</InputLabel>
+          <TextField
+            variant="outlined"
+            required
+            type="text"
+            className="register__user"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+          ></TextField>
+        </div>
+        <div className="register__input">
+          <InputLabel>Email</InputLabel>
+          <TextField
+            variant="outlined"
+            required
+            type="email"
+            className="register__email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></TextField>
+        </div>
+        <div className="register__input">
+          <InputLabel>Password</InputLabel>
+          <TextField
+            variant="outlined"
+            required
+            type="password"
+            className="register__password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          ></TextField>
+        </div>
+        <Button
+          type="submit"
+          className="register__submit"
+          color="primary"
+          variant="contained"
+        >
           Register
-        </button>
+        </Button>
       </form>
     </div>
   );
