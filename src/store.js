@@ -11,6 +11,7 @@ class KiteStore {
   isAddingSpot = false;
   position = {};
   tableRef = null;
+  mapRef = null;
   constructor() {
     makeAutoObservable(this);
   }
@@ -40,6 +41,9 @@ class KiteStore {
   }
   setTableRef(ref) {
     this.tableRef = ref;
+  }
+  setMapRef(ref) {
+    this.mapRef = ref;
   }
 }
 

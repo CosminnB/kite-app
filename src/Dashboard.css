@@ -7,3 +7,6 @@
   font-size: 40px;
   color: #3f51b5;
 }
+#dashboard__logout {
+  color: red;
+}

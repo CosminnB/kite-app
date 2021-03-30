@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import CustomMarker from "./CustomMarker";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
@@ -20,6 +20,8 @@ const Map = observer(() => {
   const [probability, setProbability] = useState("");
   const [filteredSpots, setFilteredSpots] = useState(null);
   const store = useStore();
+  const mapRef = useRef(null);
+  store.setMapRef(mapRef.current);
   const scrollToDiv = (ref) => window.scrollTo(0, ref.offsetTop);
   const handleClose = () => {
     setAnchorEl(null);
@@ -48,7 +50,7 @@ const Map = observer(() => {
     setFilteredSpots(spots);
   };
   return (
-    <div className="map">
+    <div className="map" ref={mapRef}>
       <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"

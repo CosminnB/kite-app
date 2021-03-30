@@ -64,7 +64,7 @@ const Dashboard = observer(() => {
           horizontal: "center",
         }}
       >
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={handleLogout} id="dashboard__logout">
           <ExitToAppIcon />
           Logout
         </MenuItem>
