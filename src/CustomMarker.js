@@ -48,10 +48,10 @@ const CustomMarker = observer(({ spot }) => {
       .then((res) => res.json())
       .then((data) => {
         store.pushFavorite(data);
+        setIsFavorite(true);
         setFavoriteObj(data.id);
       })
       .catch((err) => console.log(err));
-    setIsFavorite(true);
   };
   const removeFromFavorites = (id) => {
     if (favoriteObj) {

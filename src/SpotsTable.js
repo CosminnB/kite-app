@@ -18,6 +18,42 @@ const SpotsTable = observer(() => {
   const [searchText, setSearchText] = useState("");
   const store = useStore();
   const tableRef = useRef();
+  const addToFavorites = (id) => {
+    const body = { spot: id };
+    fetch(`${store.url}/favourites`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        store.pushFavorite(data);
+      })
+      .catch((err) => console.log(err));
+  };
+  const removeFromFavorites = (id) => {
+    let favorites = store.favorites;
+    let favoriteObj; //id of 'favorite' object
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i].spot == id) {
+        favoriteObj = favorites[i].id;
+        console.log(favorites[i].spot + " is favorite");
+      }
+    }
+    fetch(`${store.url}/favourites/${favoriteObj}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        store.removeFavorite(id);
+      })
+      .catch((err) => console.log(err));
+  };
   store.setTableRef(tableRef.current);
   const columns = [
     { field: "name", headerName: "Name", width: 250 },
@@ -32,9 +68,15 @@ const SpotsTable = observer(() => {
       width: 150,
       renderCell: (params) =>
         params.row.isFavorite === true ? (
-          <StarIcon style={{ color: "#f89d3f" }} />
+          <StarIcon
+            style={{ color: "#f89d3f", cursor: "pointer" }}
+            onClick={() => removeFromFavorites(params.row.id)}
+          />
         ) : (
-          <StarOutlineIcon />
+          <StarOutlineIcon
+            style={{ cursor: "pointer" }}
+            onClick={() => addToFavorites(params.row.id)}
+          />
         ),
     },
   ];
@@ -43,7 +85,7 @@ const SpotsTable = observer(() => {
     let spots;
     spots = store.spots.map((spot) => {
       let fav = store.favorites.some((item) => item.spot == spot.id);
-      console.log(fav);
+
       return {
         id: spot.id,
         country: spot.country,
@@ -55,6 +97,7 @@ const SpotsTable = observer(() => {
         isFavorite: fav,
       };
     });
+
     if (searchText) {
       spots = spots.filter((spot) => {
         const spotName = spot.name.toLowerCase();

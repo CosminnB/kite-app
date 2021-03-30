@@ -28,7 +28,7 @@ class KiteStore {
     this.favorites = data;
   }
   pushFavorite(item) {
-    this.favorites.push(item);
+    this.favorites = [...this.favorites, item];
   }
   removeFavorite(id) {
     this.favorites = this.favorites.filter((fav) => fav.spot !== id);
