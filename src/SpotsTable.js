@@ -69,7 +69,7 @@ const SpotsTable = observer(() => {
       renderCell: (params) =>
         params.row.isFavorite === true ? (
           <StarIcon
-            style={{ color: "#f89d3f", cursor: "pointer" }}
+            style={{ color: "rgb(255,204,0)", cursor: "pointer" }}
             onClick={() => removeFromFavorites(params.row.id)}
           />
         ) : (
@@ -134,7 +134,7 @@ const SpotsTable = observer(() => {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={10}
+        pageSize={20}
         disableColumnMenu
         disableColumnSelector
         disableSelectionOnClick

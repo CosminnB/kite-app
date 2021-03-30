@@ -1,5 +1,6 @@
 .map {
   position: relative;
+  margin: 20px;
 }
 .map > .leaflet-container {
   height: 90vh;
@@ -20,6 +21,7 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  width: 300px;
 }
 #filter-popover > .MuiPaper-root > * {
   padding: 8px;
@@ -34,6 +36,6 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 1000;
   margin: 10px;
 }

@@ -1,15 +1,14 @@
 .add__container {
   position: absolute;
   background-color: white;
-  z-index: 999;
+  z-index: 1000;
   top: 0;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
-  /* 90% pt mobil */
-  height: 650px;
+  width: 70vw;
+  height: 90vh;
   margin-top: 5px;
   display: flex;
   flex-direction: column;
@@ -17,6 +16,7 @@
   border: 1px solid black;
   box-shadow: 3px 3px 20px 2px rgb(70 70 70 / 86%);
 }
+
 .add__container > .leaflet-container {
   width: 90%;
   height: 100%;

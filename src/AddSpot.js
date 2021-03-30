@@ -1,5 +1,6 @@
 import {
   Button,
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -90,111 +91,118 @@ function AddSpot() {
     store.setIsAddingSpot(false);
   };
   return (
-    <div className="add__container">
-      <div className="add__name">
-        <InputLabel id="name-label">Name</InputLabel>
-        <TextField
-          id="filled-helperText"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div className="add__country">
-        <InputLabel id="select-label">Country</InputLabel>
-        <Select
-          labelId="select-label"
-          id="select-country"
-          value={optionValue}
-          onChange={(e) => {
-            setOptionValue(e.target.value);
-            setCountryValue(e.target.value.value);
-            setCountryName(e.target.value.label);
-          }}
-          displayEmpty
-        >
-          <MenuItem value="" disabled>
-            Select a country..
-          </MenuItem>
-          {options?.map((option) => (
-            <MenuItem key={option.value} value={option}>
-              {option.label}
+    <form onSubmit={handleConfirm}>
+      <div className="add__container">
+        <div className="add__name">
+          <InputLabel id="name-label">Name</InputLabel>
+          <TextField
+            required
+            id="filled-helperText"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="add__country">
+          <InputLabel id="select-label">Country</InputLabel>
+          <Select
+            required
+            labelId="select-label"
+            id="select-country"
+            value={optionValue}
+            onChange={(e) => {
+              setOptionValue(e.target.value);
+              setCountryValue(e.target.value.value);
+              setCountryName(e.target.value.label);
+            }}
+            displayEmpty
+          >
+            <MenuItem value="" disabled>
+              Select a country..
             </MenuItem>
-          ))}
-        </Select>
-      </div>
+            {options?.map((option) => (
+              <MenuItem key={option.value} value={option}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
 
-      <div className="add__dates">
-        <InputLabel>Starting Date</InputLabel>
-        <DatePicker
-          dateFormat="dd/MM/yyyy"
-          id="date-picker1"
-          selected={firstSelectedDate}
-          onChange={(date) => setFirstSelectedDate(date)}
-          selectsStart
-          startDate={firstSelectedDate}
-          endDate={secondSelectedDate}
-        />
-      </div>
-      <div className="add__dates">
-        <InputLabel>Ending Date</InputLabel>
-        <DatePicker
-          dateFormat="dd/MM/yyyy"
-          id="date-picker2"
-          selected={secondSelectedDate}
-          onChange={(date) => setSecondSelectedDate(date)}
-          selectsEnd
-          startDate={firstSelectedDate}
-          endDate={secondSelectedDate}
-          minDate={firstSelectedDate}
-        />
-      </div>
-      <div className="add__season">
-        <h4>High Season</h4>
-        {firstSelectedDate.getMonth() !== secondSelectedDate.getMonth() ? (
-          <p>
-            {firstSelectedDate.toLocaleString("default", { month: "long" })} to{" "}
-            {secondSelectedDate.toLocaleString("default", { month: "long" })}
-          </p>
-        ) : (
-          <p>
-            {firstSelectedDate.toLocaleString("default", { month: "long" })}
-          </p>
-        )}
-      </div>
-      <MapContainer
-        center={countryValue}
-        zoom={3}
-        scrollWheelZoom={true}
-        maxBounds={[
-          [-90, -180],
-          [90, 180],
-        ]}
-        noWrap={true}
-        maxBoundsViscosity={1}
-      >
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        <div className="add__dates">
+          <InputLabel>Starting Date</InputLabel>
+          <DatePicker
+            required
+            dateFormat="dd/MM/yyyy"
+            id="date-picker1"
+            selected={firstSelectedDate}
+            onChange={(date) => setFirstSelectedDate(date)}
+            selectsStart
+            startDate={firstSelectedDate}
+            endDate={secondSelectedDate}
+          />
+        </div>
+        <div className="add__dates">
+          <InputLabel>Ending Date</InputLabel>
+          <DatePicker
+            required
+            dateFormat="dd/MM/yyyy"
+            id="date-picker2"
+            selected={secondSelectedDate}
+            onChange={(date) => setSecondSelectedDate(date)}
+            selectsEnd
+            startDate={firstSelectedDate}
+            endDate={secondSelectedDate}
+            minDate={firstSelectedDate}
+          />
+        </div>
+        <div className="add__season">
+          <h4>High Season</h4>
+          {firstSelectedDate.getMonth() !== secondSelectedDate.getMonth() ? (
+            <p>
+              {firstSelectedDate.toLocaleString("default", { month: "long" })}{" "}
+              to{" "}
+              {secondSelectedDate.toLocaleString("default", { month: "long" })}
+            </p>
+          ) : (
+            <p>
+              {firstSelectedDate.toLocaleString("default", { month: "long" })}
+            </p>
+          )}
+        </div>
+        <MapContainer
+          center={countryValue}
+          zoom={3}
+          scrollWheelZoom={true}
+          maxBounds={[
+            [-90, -180],
+            [90, 180],
+          ]}
           noWrap={true}
-          minZoom={2}
-        />
-        <MarkerAdd />
-        {countryValue !== [46.984, 9.247] ? (
-          <SetViewOnSelect coords={countryValue} />
-        ) : (
-          ""
-        )}
-      </MapContainer>
-      <div className="add__buttons">
-        <Button variant="contained" color="secondary" onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleConfirm}>
-          Confirm
-        </Button>
+          maxBoundsViscosity={1}
+        >
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            noWrap={true}
+            minZoom={2}
+          />
+          <MarkerAdd />
+          {countryValue !== [46.984, 9.247] ? (
+            <SetViewOnSelect coords={countryValue} />
+          ) : (
+            ""
+          )}
+        </MapContainer>
+        <div className="add__buttons">
+          <Button variant="contained" color="secondary" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="contained" color="primary" type="submit">
+            Confirm
+          </Button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
 

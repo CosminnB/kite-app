@@ -1,5 +1,5 @@
 .table__container {
-  height: 79vh;
+  height: 75vh;
   margin: 20px;
 }
 #table__goUp {
@@ -7,10 +7,13 @@
   color: white !important;
   border-radius: 20%;
   margin: 10px;
+  display: flex;
+  margin-left: auto;
 }
 
-.table__datagrid {
-  color: rgb(0, 0, 0);
+#table__datagrid {
+  color: rgb(0, 0, 0) !important;
+  height: 600px;
 }
 .table__container > * {
   margin: 10px;

@@ -82,6 +82,7 @@ const Map = observer(() => {
               <CustomMarker spot={spot} key={`spot-${spot.id}`} />
             ))}
       </MapContainer>
+
       <Button
         variant="contained"
         id="map__filterButton"
@@ -96,7 +97,6 @@ const Map = observer(() => {
         <img src="\filter.png" alt="filter-icon" id="filter-icon" />
         Filters
       </Button>
-
       <Popover
         id={"filter-popover"}
         open={Boolean(anchorEl)}
