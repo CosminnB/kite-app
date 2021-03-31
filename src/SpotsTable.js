@@ -53,8 +53,26 @@ const SpotsTable = observer(() => {
   const columns = [
     { field: "name", headerName: "Name", width: 250 },
     { field: "country", headerName: "Country", width: 250 },
-    { field: "lat", headerName: "Latitude", width: 150 },
-    { field: "long", headerName: "Longitude", width: 150 },
+    {
+      field: "lat",
+      headerName: "Latitude",
+      width: 150,
+      renderCell: (params) =>
+        params.row.lat.toLocaleString("en-US", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 3,
+        }),
+    },
+    {
+      field: "long",
+      headerName: "Longitude",
+      width: 150,
+      renderCell: (params) =>
+        params.row.long.toLocaleString("en-US", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 3,
+        }),
+    },
     { field: "month", headerName: "When to go", width: 180 },
     { field: "probability", headerName: "Probability (%)", width: 150 },
     {

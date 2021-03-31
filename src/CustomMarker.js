@@ -3,6 +3,8 @@ import { Marker, Popup } from "react-leaflet";
 import { useStore } from "./store";
 import * as L from "leaflet";
 import { observer } from "mobx-react-lite";
+import { Button } from "@material-ui/core";
+import "./CustomMarker.css";
 
 const CustomMarker = observer(({ spot }) => {
   const store = useStore();
@@ -77,42 +79,81 @@ const CustomMarker = observer(({ spot }) => {
       icon={isFavorite ? yellowIcon : blueIcon}
     >
       <Popup>
-        <div>
-          <h3> {spot.name}</h3>
+        <div className="marker__wrapper">
+          <div className="marker__top">
+            <h3 className="marker__name"> {spot.name}</h3>
+            {isFavorite ? (
+              <div
+                onClick={() => removeFromFavorites(spot.id)}
+                className="marker__icon"
+              >
+                <img
+                  src="\star-on.png"
+                  alt="star-on"
+                  width="20px"
+                  height="20px"
+                />
+              </div>
+            ) : (
+              <div
+                onClick={() => addToFavorites(spot.id)}
+                className="marker__icon"
+              >
+                <img
+                  src="\star-off.png"
+                  alt="star-off"
+                  width="20px"
+                  height="20px"
+                />
+              </div>
+            )}
+          </div>
+          <p className="marker__country"> {spot.country}</p>
+          <p>
+            Wind probability:<span> {spot.probability}%</span>
+          </p>
+          <p>
+            Latitude:{" "}
+            <span>
+              {parseFloat(spot.lat).toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 3,
+              })}
+              °{spot.lat < 0 ? "S" : "N"}
+            </span>
+          </p>
+
+          <p>
+            Longitude:{" "}
+            <span>
+              {parseFloat(spot.long).toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 3,
+              })}
+              °{spot.long < 0 ? "W" : "E"}
+            </span>
+          </p>
+
+          <p>
+            When to go: <span>{spot.month}</span>
+          </p>
+
           {isFavorite ? (
-            <div onClick={() => removeFromFavorites(spot.id)}>
-              <img
-                src="\star-on.png"
-                alt="star-on"
-                width="20px"
-                height="20px"
-              />
-            </div>
-          ) : (
-            <div onClick={() => addToFavorites(spot.id)}>
-              <img
-                src="\star-off.png"
-                alt="star-off"
-                width="20px"
-                height="20px"
-              />
-            </div>
-          )}
-          <p> {spot.country}</p>
-          Wind probability: {spot.probability}% Latitude: {spot.lat}
-          <br />
-          Longitude: {spot.long}
-          <br />
-          When to go: {spot.month}
-          <br />
-          {isFavorite ? (
-            <button onClick={() => removeFromFavorites(spot.id)}>
+            <Button
+              onClick={() => removeFromFavorites(spot.id)}
+              variant="contained"
+              color="secondary"
+            >
               Remove from favorites
-            </button>
+            </Button>
           ) : (
-            <button onClick={() => addToFavorites(spot.id)}>
+            <Button
+              onClick={() => addToFavorites(spot.id)}
+              variant="contained"
+              color="primary"
+            >
               Add to favorites
-            </button>
+            </Button>
           )}
         </div>
       </Popup>

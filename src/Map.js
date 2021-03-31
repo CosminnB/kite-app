@@ -124,7 +124,11 @@ const Map = observer(() => {
           id="probability-input"
           variant="standard"
           value={probability}
-          onChange={(e) => setProbability(e.target.value)}
+          onChange={(e) => {
+            isNaN(e.target.value)
+              ? alert("Please enter only numbers")
+              : setProbability(e.target.value);
+          }}
         />
         <div className="filter__button-group">
           <Button variant="contained" color="primary" onClick={filterSpots}>
